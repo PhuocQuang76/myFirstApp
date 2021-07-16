@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges, SimpleChange
+} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,30 +12,35 @@ import { Component } from '@angular/core';
 
 })
 export class AppComponent {
-  servers = [];
-  display = false;
-  log = [];
+  serverElements = [{type:'server', name:'Testserver', content:'Just a test'}];
 
-  onToggleDisplay(){
-    this.display = ! this.display
-    if(!this.display){
-      // @ts-ignore
-      this.log.push(new Date());
-    }
 
+
+  onServerAdded(serverData:{serverName:string;serverContent:string}){
+    this.serverElements.push(
+      {
+        type:'server',
+        name: serverData.serverName,
+        content: serverData.serverContent
+      }
+    );
   }
 
-  onAddServer(){
-    // @ts-ignore
-    this.servers.push('phuoc');
+  onBlueprintAdded(blueprintData:{blueprintName:string;blueprintContent:string }){
+    this.serverElements.push(
+      {
+        type:'blueprint',
+        name: blueprintData.blueprintName,
+        content: blueprintData.blueprintContent
+      }
+    );
   }
 
-
-  onRemoveServer(i: number){
-
-    this.servers.splice(i,1);
+  onChangeName(){
+    this.serverElements[0].name ="Changed"
   }
-
-
-
+  onDestroyFirstComponent(){
+    this.serverElements.splice(0,1)
+  }
 }
+
