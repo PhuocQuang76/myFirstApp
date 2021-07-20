@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   Input,
-  OnChanges, SimpleChange
+  OnChanges, SimpleChange, Output
 } from '@angular/core';
 
 @Component({
@@ -12,9 +12,22 @@ import {
 
 })
 export class AppComponent {
+
+  oddNumbers: number[] = [];
+  evenNumbers: number[] = [];
+
   serverElements = [{type:'server', name:'Testserver', content:'Just a test'}];
 
 
+  onIntervalFired(firedNUmber:number){
+    if(firedNUmber % 2 === 0){
+      this.evenNumbers.push(firedNUmber)
+    }else{
+      this.oddNumbers.push(firedNUmber)
+    }
+    console.log(firedNUmber);
+
+  }
 
   onServerAdded(serverData:{serverName:string;serverContent:string}){
     this.serverElements.push(
@@ -42,5 +55,7 @@ export class AppComponent {
   onDestroyFirstComponent(){
     this.serverElements.splice(0,1)
   }
+
+
 }
 
